@@ -1,11 +1,11 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Dispatcher } from './dispatcher';
+import { Action } from './action';
+import { ActionReducer } from './actionReducer';
 
-import { Dispatcher, Action } from './dispatcher';
+import { Injectable } from 'ng-metadata/core';
 
-export interface ActionReducer<T> {
-  (state: T, action: Action): T;
-}
-
+@Injectable()
 export class Reducer extends BehaviorSubject<ActionReducer<any>> {
   static REPLACE = '@ngrx/store/replace-reducer';
 

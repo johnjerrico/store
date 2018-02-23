@@ -1,4 +1,4 @@
-import {ActionReducer} from './reducer';
+import { ActionReducer } from './actionReducer';
 
 export function combineReducers(reducers: any): ActionReducer<any> {
   const reducerKeys = Object.keys(reducers);
@@ -21,7 +21,6 @@ export function combineReducers(reducers: any): ActionReducer<any> {
       const reducer = finalReducers[key];
       const previousStateForKey = state[key];
       const nextStateForKey = reducer(previousStateForKey, action);
-
       nextState[key] = nextStateForKey;
       hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
     }

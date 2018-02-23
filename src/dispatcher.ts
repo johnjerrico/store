@@ -1,10 +1,9 @@
+import { Action } from './action';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-export interface Action {
-  type: string;
-  payload?: any;
-}
+import { Injectable } from 'ng-metadata/core';
 
+@Injectable()
 export class Dispatcher extends BehaviorSubject<Action> {
   static INIT = '@ngrx/store/init';
 

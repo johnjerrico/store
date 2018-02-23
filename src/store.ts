@@ -4,12 +4,17 @@ import { Observable } from 'rxjs/Observable';
 import { Subscriber } from 'rxjs/Subscriber';
 import { Operator } from 'rxjs/Operator';
 
-import { Action } from './dispatcher';
+import { Action } from './action';
 import { State } from './state';
-import { ActionReducer } from './reducer';
+import { ActionReducer } from './actionReducer';
 
+import { Injectable } from 'ng-metadata/core';
 
+@Injectable()
 export class Store<T> extends Observable<T> implements Observer<Action> {
+
+  select: SelectSignature<T> = select.bind(this);
+
   constructor(
     private _dispatcher: Observer<Action>,
     private _reducer: Observer<ActionReducer<any>>,
@@ -19,8 +24,6 @@ export class Store<T> extends Observable<T> implements Observer<Action> {
 
     this.source = state$;
   }
-
-  select: SelectSignature<T> = select.bind(this);
 
   lift<R>(operator: Operator<T, R>): Store<R> {
     const store = new Store<R>(this._dispatcher, this._reducer, this);

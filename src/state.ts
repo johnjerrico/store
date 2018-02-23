@@ -3,10 +3,12 @@ import { scan } from 'rxjs/operator/scan';
 import { observeOn } from 'rxjs/operator/observeOn';
 import { queue } from 'rxjs/scheduler/queue';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
 import { Dispatcher } from './dispatcher';
 import { Reducer } from './reducer';
 
+import { Injectable } from 'ng-metadata/core';
+
+@Injectable()
 export class State<T> extends BehaviorSubject<T> {
   constructor(_initialState: T, action$: Dispatcher, reducer$: Reducer) {
     super(_initialState);
