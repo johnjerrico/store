@@ -4,6 +4,17 @@
   "description": "RxJS powered Redux for Ng-Metadata apps",
   "main": "./bundles/store.umd.js",
   "module": "./index.js",
+  "scripts": {
+    "clean:pre": "rimraf release",
+    "clean:post": "rimraf \"src/**/*.ngfactory.ts\"",
+    "copy": "node_modules/.bin/cpy LICENSE package.json README.md release",
+    "build:js": "node_modules/.bin/webpack --display verbose --watch false --env.production --progress --profile --colors --config webpack.js",
+    "build:umd": "node_modules/.bin/rollup -c rollup.config.js",
+    "build:uglify": "node_modules/.bin/uglifyjs -c --screw-ie8 --comments -o ./release/bundles/store.min.umd.js ./release/bundles/store.umd.js",
+    "prebuild": "npm run clean:pre",
+    "postbuild": "npm run clean:post && npm run copy",
+    "build": "npm run build:js && npm run build:umd && npm run build:uglify"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ngrx/store.git"
@@ -21,16 +32,33 @@
   },
   "homepage": "https://github.com/johnjerrico/store#readme",
   "peerDependencies": {
-    "angular": "^1.6.9",
-    "rxjs": "^5.4.0",
-    "@ngrx/core": "^1.2.0"
+    "@ngrx/core": "^1.2.0",
+    "rxjs": "^5.4.0"
   },
   "devDependencies": {
+    "@types/angular": "^1.6.43",
     "@types/core-js": "0.9.37",
     "@types/node": "^6.0.38",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.3",
+    "copy-cli": "^1.2.1",
     "core-js": "^2.4.1",
+    "cpy-cli": "^1.0.1",
     "ng-metadata": "^4.0.1",
-    "ts-loader": "^0.8.2",
-    "typescript": "^2.4.2"
+    "preload-webpack-plugin": "^2.2.0",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.56.3",
+    "typescript": "^2.4.2",
+    "uglify-js": "^3.3.12",
+    "uglifyjs": "^2.4.11",
+    "webpack": "3.4.1",
+    "webpack-cli": "^2.0.9"
+  },
+  "dependencies": {
+    "@ngrx/core": "^1.2.0",
+    "angular": "^1.6.4",
+    "awesome-typescript-loader": "^3.5.0",
+    "babel-preset-env": "^1.6.1",
+    "rxjs": "^5.5.6"
   }
 }
