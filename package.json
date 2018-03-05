@@ -8,12 +8,10 @@
     "clean:pre": "rimraf release",
     "clean:post": "rimraf \"src/**/*.ngfactory.ts\"",
     "copy": "node_modules/.bin/cpy LICENSE package.json README.md release",
-    "build:js": "node_modules/.bin/webpack --display verbose --watch false --env.production --progress --profile --colors --config webpack.js",
-    "build:umd": "node_modules/.bin/rollup -c rollup.config.js",
-    "build:uglify": "node_modules/.bin/uglifyjs -c --screw-ie8 --comments -o ./release/bundles/store.min.umd.js ./release/bundles/store.umd.js",
+    "build:js": "node_modules/.bin/webpack --display --profile --colors --config webpack.js",
     "prebuild": "npm run clean:pre",
     "postbuild": "npm run clean:post && npm run copy",
-    "build": "npm run build:js && npm run build:umd && npm run build:uglify"
+    "build": "npm run build:js"
   },
   "repository": {
     "type": "git",
@@ -46,16 +44,15 @@
     "copy-cli": "^1.2.1",
     "core-js": "^2.4.1",
     "cpy-cli": "^1.0.1",
-    "ng-metadata": "^4.0.1",
     "rimraf": "^2.6.2",
-    "rollup": "^0.56.3",
-    "rxjs": "^5.5.6",
     "typescript": "^2.4.2",
-    "uglifyjs": "^2.4.11",
-    "webpack": "3.4.1",
+    "uglifyjs-webpack-plugin": "^1.2.2",
+    "webpack": "^4.1.0",
     "webpack-cli": "^2.0.10"
   },
   "dependencies": {
-    "@ngrx/core": "^1.2.0"
+    "@ngrx/core": "^1.2.0",
+    "ng-metadata": "^4.0.1",
+    "rxjs": "^5.5.6"
   }
 }
