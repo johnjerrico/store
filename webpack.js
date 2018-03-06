@@ -7,6 +7,7 @@ const NoEmitOnErrorsPlugin = webpack.NoEmitOnErrorsPlugin;
 const ContextReplacementPlugin = webpack.ContextReplacementPlugin;
 
 module.exports = {
+    mode: 'production',
     output: {
         path: path.resolve(__dirname,'release','bundles'),
         filename: 'store.umd.js',
@@ -14,24 +15,18 @@ module.exports = {
         libraryTarget: 'umd',
         umdNamedDefine: true
     },
-    entry: {
-        main: path.resolve(__dirname,'index.ts')
-    },
+    entry: [
+        "babel-polyfill",
+        path.resolve(__dirname,'index.ts')
+    ],
     resolve: {
         extensions: ['.ts', '.js'],
         modules: [path.resolve(__dirname,"node_modules"),root]
     },
-    externals: {
-        'ng-metadata/core': 'ng.core',
-        '@ngrx/core': 'ngrx.core',
-        'rxjs/Observable': 'Rx',
-        'rxjs/BehaviorSubject': 'Rx',
-        'rxjs/Subscriber': 'Rx',
-        'rxjs/scheduler/queue': 'Rx.Scheduler',
-        'rxjs/operator/observeOn': 'Rx.Observable.prototype',
-        'rxjs/operator/scan': 'Rx.Observable.prototype',
-        'rxjs/operator/withLatestFrom': 'Rx.Observable'
-    },
+    externals: [
+        'deep-freeze-strict',
+        '@ngrx/store'
+    ],
     plugins: [
         new NoEmitOnErrorsPlugin(),
         new UglifyJsPlugin({ sourceMap: true }),
