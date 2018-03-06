@@ -2,7 +2,7 @@
   "name": "@ngrx/store",
   "version": "2.2.3",
   "description": "RxJS powered Redux for Ng-Metadata apps",
-  "main": "./bundles/store.umd.js",
+  "main": "./release/bundles/store.umd.js",
   "module": "./index.js",
   "scripts": {
     "clean:pre": "rimraf release",
